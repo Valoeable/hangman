@@ -23,19 +23,36 @@ class Hangman
         game_over_display = %w[H A N G M A N]
 
         puts('Welcome to the game of Hangman!')
+        puts("Your available letter are:#{@letters_available}")
 
         until @num_of_guesses.zero? || @guessed_word
             puts('Select a letter which you think the word might contain:')
             chosen_letter = gets.chomp
             chosen_letter = chosen_letter.downcase
-
-            was_it_a_hit(chosen_letter)
+            
+            if @guessed_letters.include?(chosen_letter)
+                puts('Sorry but you have to choose another letter, you already used this one.')
+                next
+            else
+                @guessed_letters.push(chosen_letter)
+                i_of_guessed_letter = @letters_available.find_index(chosen_letter)
+                @letters_available.delete_at(i_of_guessed_letter)
+            end
+            conclusion = was_it_a_hit(chosen_letter, random_word)
 
         end
 
 
 
-        def was_it_a_hit(letter)
+        def was_it_a_hit(letter, generated_word)
+
+            if generated_word.include?(letter)
+                puts('Cool, you got the correct letter, keep it up!')
+                return 1
+            else
+                puts("Unluuucky, don't worry though, it's not over yet.")
+                return 0
+            end
 
         end
 
