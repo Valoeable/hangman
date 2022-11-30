@@ -51,6 +51,7 @@ class Hangman
                 if times_lost == 0
                     puts game_over_display[times_lost]
                     times_lost += 1
+                    @num_of_guesses -= 1
                 else
                     counter = 0
                     until counter > times_lost
@@ -58,6 +59,8 @@ class Hangman
                         print(' ')
                         counter += 1
                     end
+                    times_lost += 1
+                    @num_of_guesses -= 1
                     print("\n")
                 end
             end
