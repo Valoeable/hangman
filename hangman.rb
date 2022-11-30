@@ -19,13 +19,14 @@ class Hangman
         random_word = pick_random_line
         random_word = random_word.split('')
         random_word.pop
+        times_lost = 0
         hidden_word = Array.new(random_word.length, '_')
         game_over_display = %w[H A N G M A N]
 
         puts('Welcome to the game of Hangman!')
-        puts("Your available letter are:#{@letters_available}")
 
         until @num_of_guesses.zero? || @guessed_word
+            puts("Your available letter are:#{@letters_available.join(" ")}")
             puts('Select a letter which you think the word might contain:')
             chosen_letter = gets.chomp
             chosen_letter = chosen_letter.downcase
@@ -40,7 +41,36 @@ class Hangman
             end
             conclusion = was_it_a_hit(chosen_letter, random_word)
 
+            if conclusion == 1
+                random_word.each_with_index do |letter, i|
+                    if letter == chosen_letter
+                        hidden_word[i] = chosen_letter
+                    end
+                end
+            else
+                if times_lost == 0
+                    puts game_over_display[times_lost]
+                    times_lost += 1
+                else
+                    counter = 0
+                    until counter > times_lost
+                        print game_over_display[counter]
+                        print(' ')
+                        counter += 1
+                    end
+                    print("\n")
+                end
+            end
+
+            puts hidden_word.join(' ')
+
+            hidden_word == random_word ? @guessed_word = true : @guessed_word = false
+
         end
+
+        @guessed_word == true ? puts('Damn bruv, you good at this!!!') : puts('"Well, off to Hang myself!"')
+
+    end
 
 
 
@@ -56,8 +86,8 @@ class Hangman
 
         end
 
-    end
-
 end
+
+
 
 game = Hangman.new
