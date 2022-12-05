@@ -1,0 +1,38 @@
+---
+- !ruby/object:Hangman
+  random_word: such
+  hidden_word:
+  - _
+  - u
+  - _
+  - _
+  times_lost: 4
+  guessed_word: false
+  letters_available:
+  - b
+  - c
+  - d
+  - f
+  - g
+  - h
+  - j
+  - k
+  - l
+  - m
+  - "n"
+  - p
+  - q
+  - r
+  - s
+  - t
+  - v
+  - w
+  - x
+  - "y"
+  - z
+  guessed_letters:
+  - a
+  - e
+  - i
+  - o
+  - u
